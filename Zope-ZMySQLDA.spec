@@ -1,25 +1,20 @@
-%define prod_name ZMySQLDA
+%include	/usr/lib/rpm/macros.python
+%define zope_subname ZMySQLDA
 Summary:	Zope MySQL database adapter
 Summary(pl):	Interfejs bazy danych MySQL do Zope
-Name:		Zope-%{prod_name}
+Name:		Zope-%{zope_subname}
 Version:	2.0.8
 Release:	1
 License:	ZPL
 Group:		Development/Languages/Python
-Source0:	http://www.zope.org/Members/adustman/Products/ZMySQLDA/%{prod_name}-%{version}.tar.gz
+Source0:	http://www.zope.org/Members/adustman/Products/ZMySQLDA/%{zope_subname}-%{version}.tar.gz
 # Source0-md5:	74332272e53b13c6b19d3185d575699c
 URL:		http://www.zope.org/Members/adustman/Products/ZMySQLDA/
-BuildRequires:	python-MySQLdb
+%pyrequires_eq	python-modules
 Requires:	Zope
 Requires:	python-MySQLdb
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define python_compile_opt python -O -c "import compileall; compileall.compile_dir('.')"
-%define python_compile     python -c "import compileall; compileall.compile_dir('.')"
-
-%define zope_dir	   %{_libdir}/zope
-%define zope_productsdir   %{zope_dir}/Products
 
 %description
 Zope MySQL database adapter.
@@ -29,26 +24,38 @@ Interfejs bazy danych MySQL do Zope.
 
 %prep
 %setup -q -c
-mv -f lib/python/Products/%{prod_name}/* .
+mv -f lib/python/Products/%{zope_subname}/* .
 rm -rf lib
 
 %build
-%{python_compile}
-%{python_compile_opt}
-
-find . -name \*.py | xargs -r rm -f
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{zope_productsdir}/%{prod_name}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-cp -a . $RPM_BUILD_ROOT%{zope_productsdir}/%{prod_name}
-rm -f $RPM_BUILD_ROOT%{zope_productsdir}/%{prod_name}/*.gz
+cp -af *.py *.dtml help icons $RPM_BUILD_ROOT%{_datadir}/%{name}
+
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/usr/sbin/installzopeproduct %{_datadir}/%{name} %{zope_subname}
+if [ -f /var/lock/subsys/zope ]; then
+	/etc/rc.d/init.d/zope restart >&2
+fi
+
+%postun
+if [ "$1" = "0" ]; then
+	/usr/sbin/installzopeproduct -d %{zope_subname} 
+	if [ -f /var/lock/subsys/zope ]; then
+		/etc/rc.d/init.d/zope restart >&2
+	fi
+fi
+
 %files
 %defattr(644,root,root,755)
 %doc *.txt
-%{zope_productsdir}/%{prod_name}
+%{_datadir}/%{name}
