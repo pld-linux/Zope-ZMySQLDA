@@ -9,7 +9,7 @@ Group:		Development/Languages/Python
 Source0:	http://www.zope.org/Members/adustman/Products/ZMySQLDA/%{zope_subname}-%{version}.tar.gz
 # Source0-md5:	74332272e53b13c6b19d3185d575699c
 URL:		http://www.zope.org/Members/adustman/Products/ZMySQLDA/
-BuildRequires:  python
+BuildRequires:	python
 %pyrequires_eq	python-modules
 Requires:	Zope
 Requires:	python-MySQLdb
