@@ -21,10 +21,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define python_compile     python -c "import compileall; compileall.compile_dir('.')"
 
 %define zope_dir	   %{_libdir}/zope
-%define zope_productsdir   %{zope_dir}/Products 	
+%define zope_productsdir   %{zope_dir}/Products
 
 %description
-Zope MySQL database adapter. 
+Zope MySQL database adapter.
 
 %description -l pl
 Interfejs bazy danych MySQL do Zope.
