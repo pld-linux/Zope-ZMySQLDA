@@ -1,19 +1,17 @@
-
 %define prod_name ZMySQLDA
-
 Summary:	Zope MySQL database adapter
 Summary(pl):	Interfejs bazy danych MySQL do Zope
 Name:		Zope-%{prod_name}
 Version:	2.0.8
 Release:	1
 License:	ZPL
+Group:		Development/Languages/Python
 Source0:	http://www.zope.org/Members/adustman/Products/ZMySQLDA/%{prod_name}-%{version}.tar.gz
 # Source0-md5:	74332272e53b13c6b19d3185d575699c
 URL:		http://www.zope.org/Members/adustman/Products/ZMySQLDA/
-Group:		Development/Languages/Python
+BuildRequires:	python-MySQLdb
 Requires:	Zope
 Requires:	python-MySQLdb
-BuildRequires:	python-MySQLdb
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
