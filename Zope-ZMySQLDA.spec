@@ -1,7 +1,8 @@
 
 %define prod_name ZMySQLDA
 
-Summary:	Zope MySQL database adapter. 
+Summary:	Zope MySQL database adapter
+Summary(pl):	Interfejs bazy danych MySQL do Zope
 Name:		Zope-%{prod_name}
 Version:	2.0.8
 Release:	1
@@ -26,9 +27,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Zope MySQL database adapter. 
 
+%description -l pl
+Interfejs bazy danych MySQL do Zope.
+
 %prep
-%setup -q -c -a 0 -n %{name}-%{version}
-mv lib/python/Products/%{prod_name}/* .
+%setup -q -c
+mv -f lib/python/Products/%{prod_name}/* .
 rm -rf lib
 
 %build
