@@ -10,8 +10,6 @@ License:	ZPL
 Source0:	http://www.zope.org/Members/adustman/Products/%{prod_name}/%{prod_name}-%{version}.tar.gz
 URL:		http://www.zope.org/Members/adustman/Products/%{prod_name}
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(pl):	Programowanie/Jêzyki/Python
 Requires:	Zope
 Requires:	python-MySQLdb
 BuildRequires:	python-MySQLdb
