@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.python
 %define zope_subname ZMySQLDA
 Summary:	Zope MySQL database adapter
 Summary(pl):	Interfejs bazy danych MySQL do Zope
