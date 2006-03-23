@@ -10,6 +10,7 @@ Source0:	http://www.zope.org/Members/adustman/Products/ZMySQLDA/%{zope_subname}-
 # Source0-md5:	74332272e53b13c6b19d3185d575699c
 URL:		http://www.zope.org/Members/adustman/Products/ZMySQLDA/
 BuildRequires:	python
+BuildRequires:	rpmbuild(macros) >= 1.268
 %pyrequires_eq	python-modules
 Requires:	Zope
 Requires:	python-MySQLdb
@@ -43,16 +44,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /usr/sbin/installzopeproduct %{_datadir}/%{name} %{zope_subname}
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
-fi
+%service -q zope restart
 
 %postun
 if [ "$1" = "0" ]; then
-	/usr/sbin/installzopeproduct -d %{zope_subname} 
-	if [ -f /var/lock/subsys/zope ]; then
-		/etc/rc.d/init.d/zope restart >&2
-	fi
+	/usr/sbin/installzopeproduct -d %{zope_subname}
+	%service -q zope restart
 fi
 
 %files
