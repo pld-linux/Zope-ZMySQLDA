@@ -1,6 +1,6 @@
 %define zope_subname ZMySQLDA
 Summary:	Zope MySQL database adapter
-Summary(pl.UTF-8):   Interfejs bazy danych MySQL do Zope
+Summary(pl.UTF-8):	Interfejs bazy danych MySQL do Zope
 Name:		Zope-%{zope_subname}
 Version:	2.0.8
 Release:	4
